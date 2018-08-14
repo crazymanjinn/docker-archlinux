@@ -4,4 +4,4 @@ ARG mirrorlist_url=https://www.archlinux.org/mirrorlist/?country=US&protocol=htt
 
 RUN curl "$mirrorlist_url" | sed 's/^#//' > /etc/pacman.d/mirrorlist && \
     pacman -Syu --noconfirm && \
-    pacman -Scc --noconfirm
+    yes | pacman -Scc
