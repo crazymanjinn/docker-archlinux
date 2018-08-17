@@ -7,6 +7,8 @@ RUN pacman -S --noconfirm reflector && \
 FROM archimg/base:latest
 
 COPY --from=mirrorlist /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist
-RUN pacman -Syu --noconfirm && \
+RUN sed -i '/^#\[multilib\]$/,/^#Include/s/^#//' /etc/pacman.conf && \
+    pacman -Syu --noconfirm && \
     yes | pacman -Scc && \
-    rm -f /etc/pacman.d/mirrorlist.pacnew
+    rm -f /etc/pacman.d/mirrorlist.pacnew /etc/pacman.conf.pacnew
+
